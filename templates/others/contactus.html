@@ -1,0 +1,73 @@
+{% extends "constant/base.html" %}
+
+{% block body %}
+  <div class="page">
+          <!-- Contacts-->
+          <section class="section section-lg bg-default text-md-left">
+            <div class="container">
+              <div class="row row-60 justify-content-center">
+                <div class="col-lg-8">
+                  <h4 class="text-spacing-25 text-transform-none">Comment</h4>
+                  <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="{% url 'comment' %}">
+                    {% csrf_token %}
+                    <div class="row row-20 gutters-20">
+                      <div class="col-md-6">
+                        <div class="form-wrap">
+                          <input class="form-input" id="contact-your-name-5" type="text" name="subject" data-constraints="@Required">
+                          <label class="form-label" for="contact-your-name-5">Service</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-wrap">
+                          <label class="form-label" for="contact-message-5">Comment</label>
+                          <textarea class="form-input textarea-lg" id="contact-message-5" name="comment" data-constraints="@Required"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="button button-secondary button-winona" type="submit">Contact us</button>
+                  </form>
+                </div>
+                <div class="col-lg-4">
+                  <div class="aside-contacts">
+                    {% for sett in settings %}
+                      
+                    <div class="row row-30">
+                        <div class="col-sm-6 col-lg-12 aside-contacts-item">
+                        <p class="aside-contacts-title">Get social</p>
+                        <ul class="list-inline contacts-social-list list-inline-sm">
+                          <li><a class="icon mdi mdi-facebook" href="{{sett.facebook}}"></a></li>
+                          <li><a class="icon mdi mdi-twitter" href="{{sett.twitter}}"></a></li>
+                          <li><a class="icon mdi mdi-instagram" href="{{sett.instagram}}"></a></li>
+                          <li><a class="icon mdi mdi-google-plus" href="{{sett.email}}"></a></li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-6 col-lg-12 aside-contacts-item">
+                        <p class="aside-contacts-title">Phone</p>
+                        <div class="unit unit-spacing-xs justify-content-center justify-content-md-start">
+                          <div class="unit-left"><span class="icon mdi mdi-phone"></span></div>
+                          <div class="unit-body"><a class="phone" href="tel:#">{{sett.phone}}</a></div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-12 aside-contacts-item">
+                        <p class="aside-contacts-title">E-mail</p>
+                        <div class="unit unit-spacing-xs justify-content-center justify-content-md-start">
+                          <div class="unit-left"><span class="icon mdi mdi-email-outline"></span></div>
+                          <div class="unit-body"><a class="mail" href="mailto:#">{{sett.email}}</a></div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-12 aside-contacts-item">
+                        <p class="aside-contacts-title">Address</p>
+                        <div class="unit unit-spacing-xs justify-content-center justify-content-md-start">
+                          <div class="unit-left"><span class="icon mdi mdi-map-marker"></span></div>
+                          <div class="unit-body"><a class="address" href="#">{{sett.address}}</a></div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+              </div>
+            </div>
+          </section>
+  </div>
+{% endblock body %}

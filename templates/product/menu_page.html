@@ -1,0 +1,55 @@
+{% extends "constant/base.html" %}
+
+{% block body %}
+  
+<div class="page">
+    <section class="section section-lg bg-default">
+        <div class="container">
+          <div class="tabs-custom row row-50 justify-content-center flex-lg-row-reverse text-center text-md-left" id="tabs-4">
+            <div class="col-lg-4 col-xl-3">
+              <h5 class="text-spacing-200 text-capitalize">Menu Category</h5>
+              <ul class="nav list-category list-category-down-md-inline-block">
+                {% load mptt_tags %} {% recursetree categories %}
+                  
+                <li class="list-category-item wow fadeInRight" role="presentation" data-wow-delay="{{node.style_delay}}s"><a class="{{node.active}}" href="{% url 'menu' node.slug %}" data-toggle="tab">{{node.title}}</a></li>
+                
+                {% endrecursetree %}
+            </div>
+            <div class="col-lg-8 col-xl-9">
+              <!-- Tab panes-->
+              <div class="tab-content tab-content-1">
+                    {% for product in products %}
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <!-- Product-->
+                            <article class="product wow fadeInLeft" data-wow-delay=".1s">
+                                <div class="product-figure"><img src='{{product.image.url}}' alt="" width="161px" height="162px"/>
+                                </div>
+                                <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
+                                </div>
+                                <h6 class="product-title">{{product.title}}</h6>
+                                <div class="product-price-wrap">
+                                    {% if product.discount_price %}
+                                    <div class="product-price">${{product.discount_price}}</div>
+                                    <div class="product-price product-price-old">${{product.price}}</div>
+                                    {% else %}
+                                    <div class="product-price">${{product.price}}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="product-button">
+                                    <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="{% url 'add_to_cart' product.slug %}">Add to cart</a></div>
+                                    <div class="button-wrap"><a class="button button-xs button-secondary button-winona" data-lightgallery='item' href="{{product.image.url}}">View Product</a>
+                                    </div>
+                                </div><span class="product-badge product-badge-{{product.status.lower}}">{% if product.status != 'None' %} {{product.status}} {% endif %}</span>
+                            </article>
+                        </div>
+                    {% endfor %}
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+</div>
+
+
+{% endblock body %}

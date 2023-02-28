@@ -1,0 +1,28 @@
+{% load static %}
+
+
+
+<section class="section section-last bg-default" style="margin-top: 2rem;">
+    <div class="container-fluid container-inset-0 isotope-wrap">
+      <div class="row row-10 gutters-10 isotope" data-isotope-layout="masonry" data-isotope-group="gallery" data-lightgallery="group">
+		{% for gallery in galleries %}
+		  
+		<div style="width:'{{gallery.width}}px'; height:'{{gallery.height}}px;'" class="col-xs-{{gallery.col_xs}} col-sm-{{gallery.col_sm}} col-xl-{{gallery.col_xl}} isotope-item oh-desktop">
+			<!-- Thumbnail Mary-->
+			<article class="thumbnail thumbnail-mary {{gallery.size_style}} wow {{gallery.slide_style}}">
+				<a style="width:'{{gallery.width}}px'; height:'{{gallery.height}}px;'" class="thumbnail-mary-figure" href="{{gallery.img.url}}" data-lightgallery="item">
+					<img src='{{gallery.img.url}}' alt="" style="background-size: cover; width:'{{gallery.width}}px'; height:'{{gallery.height}}px;'" />
+				</a>
+				<div class="thumbnail-mary-caption">
+					<div>
+						<h6 class="thumbnail-mary-title"><a href="#">{{gallery.title}}</a></h6>
+						<div class="thumbnail-mary-location">{{gallery.desc}}</div>
+					</div>
+				</div>
+			</article>
+        </div>
+		{% endfor %}
+
+      </div>
+    </div>
+  </section>

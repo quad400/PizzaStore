@@ -1,0 +1,34 @@
+{% extends "account/account.html" %}
+{% block title %}Account{% endblock %}
+{% load static %}
+  {% block tab %}
+    
+  <div class="col-lg-8 col-xl-9">
+      <table class="shopping-cart-table table">
+        <tr>
+          <th class="text-left" style="font-size: 15px">Username</th>
+          <td class="text-left" style="font-size: 15px">
+            {{user.username}}
+          </td>
+        </tr>
+        <tr>
+          <th class="text-left" style="font-size: 15px">Email</th>
+          <td class="text-left" style="font-size: 15px">{{user.email}}</td>
+        </tr>
+        <tr>
+          <th class="text-left" style="font-size: 15px">Name</th>
+          <td class="text-left" style="font-size: 15px">
+            {{user.first_name}} {{user.last_name}}
+          </td>
+        </tr>
+        <tr>
+          <th class="text-left" style="font-size: 15px;">Phone</th>
+          <td class="text-left" style="font-size: 15px;">{{profile.phone}}</td>
+      </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+</div>
+          {% endblock tab %}

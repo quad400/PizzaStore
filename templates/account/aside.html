@@ -1,0 +1,19 @@
+
+<div class="col-lg-4 col-xl-3">
+    <h5 class="text-spacing-200 text-capitalize">My Account</h5>
+    <ul class="nav list-category list-category-down-md-inline-block">
+        <li class="list-category-item wow fadeInRight" role="presentation" data-wow-delay="0s"><a class="active" href="{% url 'account_detail' %}" data-toggle="tab">Account</a></li>
+        {% if request.user.is_superuser %}
+          
+        <li class="list-category-item wow fadeInRight" role="presentation" data-wow-delay="0s"><a href="/admin/" data-toggle="tab">Admin</a></li>
+        {% endif %}
+
+        <li class="list-category-item wow fadeInRight" role="presentation" data-wow-delay="0s"><a href="{% url 'account_update' %}" data-toggle="tab">Account Update</a></li>
+        {% if request.user.is_authenticated %}
+        <li class="list-category-item wow fadeInRight" role="presentation" data-wow-delay=".3s"><a href="{% url 'account_logout' %}" data-toggle="tab">Logout</a></li>
+        {% else %}
+        <li class="list-category-item wow fadeInRight" role="presentation" data-wow-delay=".1s"><a href="{% url 'account_login' %}" data-toggle="tab">Login</a></li>
+        <li class="list-category-item wow fadeInRight" role="presentation" data-wow-delay=".2s"><a href="{% url 'account_signup' %}" data-toggle="tab">SignUp</a></li>
+        {% endif %}
+    </ul>
+</div>

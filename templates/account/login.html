@@ -1,0 +1,61 @@
+{% extends "account/account.html" %}
+{% block title %}Login{% endblock %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block tab %}
+
+<h2>Sign In</h2>
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+    <p>{% blocktrans with site.name as site_name %}Please sign in with one
+    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+    <div class="socialaccount_ballot">
+
+    <ul class="socialaccount_providers">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+
+    <div class="login-or">{% trans 'or' %}</div>
+
+    </div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+<p>{% blocktrans %}If you have not created an account yet, then please
+<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+{% endif %}
+
+
+<form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    <div class="row row-20 gutters-20">
+      <div class="col-md-6">
+        <div class="form-wrap">
+          <input class="form-input" id="contact-email-5" type="text" name="login">
+          <label class="form-label" for="contact-email-5">Username*</label>
+          <span style="color: red;">{{ form.login.errors }}</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-wrap">
+          <input class="form-input" id="contact-password-5" type="password" name="password" data-constraints="@Password?">
+          <label class="form-label" for="contact-password-5">Password*</label>
+          <span style="color: red;">{{ form.password.errors }}</span>
+        </div>
+      </div>
+    </div>
+    {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+        <a class="button " href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+    <button class="button button-secondary button-winona" type="submit">Login</button>
+  </form>
+
+{% endblock %}
+

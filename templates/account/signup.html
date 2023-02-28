@@ -1,0 +1,50 @@
+
+  {% extends "account/account.html" %}
+  {% load i18n %}
+  {% block title %}SignUp{% endblock %}
+  
+  {% block tab %}
+<h2>Sign Up</h2>
+
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+
+<form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  <div class="row row-20 gutters-20">
+    <div class="col-md-6">
+      <div class="form-wrap">
+        <input class="form-input" id="contact-email-5" type="text" name="username">
+        <label class="form-label" for="contact-email-5">Username*</label>
+        <span style="color: red;">{{ form.username.errors }}</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-wrap">
+        <input class="form-input" id="contact-email-5" type="email" name="email">
+        <label class="form-label" for="contact-email-5">E-mail*</label>
+        <span style="color: red;">{{ form.email.errors }}</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-wrap">
+        <input class="form-input" id="contact-password-5" type="password" name="password1" data-constraints="@Password?">
+        <label class="form-label" for="contact-password-5">Password*</label>
+        <span style="color: red;">{{ form.password1.errors }}</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-wrap">
+        <input class="form-input" id="contact-password-5" type="password" name="password2" data-constraints="@Password?">
+        <label class="form-label" for="contact-password-5">Confirm Password*</label>
+        <span style="color: red;">{{ form.password2.errors }}</span>
+      </div>
+    </div>
+  </div>
+  {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button class="button button-secondary button-winona" type="submit">SignUp</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "constant/base.html" %}
+{% block title %}Cart{% endblock %}
+{% block body %}
+<div class="page">
+    <div class="col-md-12">
+        <div class="order-summary clearfix">
+            <div class="section-title">
+                <h3 class="title">Order Review</h3>
+            </div>
+            <table class="shopping-cart-table table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-right"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cart in carts %}
+                      
+                    <tr>
+                        <td class="thumb"><img src="{{cart.product.image.url}}" alt="{{cart.product.title}}" height="50" width="50"></td>
+                        <td class="details">
+                            <a data-lightgallery="item" href="{{cart.product.image.url}}" style="color: black;">{{cart.product.title}}</a>
+                        </td>
+                        <td class="price text-center" style="color: black;">
+                            {% if cart.product.discount_price %}
+                            <strong>${{cart.product.discount_price}}</strong><br>
+                            <del class="font-weak">
+                                <small>${{cart.product.price}}</small>
+                            </del>
+                            {% else %}
+                            <strong>${{cart.product.price}}</strong><br>
+                            {% endif %}
+                        </td>
+                        <td class="qty text-center">
+                            <a class="fa-chevron-up" href="{% url 'add_to_cart' cart.product.slug %}" ></a>
+                            <span style="color: black;">{{cart.quantity}}</span>
+                            <a class="fa-chevron-down" href="{% url 'remove_product_quantity' cart.product.slug %}"></a>
+                        </td>
+                        <td class="total text-center"><strong style="color: black;">${{cart.amount}}</strong></td>
+                        <td class="text-center"><a href="{% url 'remove_product' cart.product.slug %}" style="padding: 5px; color: antiquewhite; border: none; border-radius: 2px; background-color: #6046b6;"><i class="fa fa-close"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="empty" colspan="3"></th>
+                        <th>TOTAL</th>
+                        {% if order.total > 0 %}
+                        <th colspan="2" class="total">${{order.total}}</th>
+                        
+                        {% else %}
+                        
+                        <th colspan="2" class="total">$0</th>
+                        {% endif %}
+                        
+                    </tr>
+                </tfoot>
+            </table>
+            {% if order.total == 0 or order.total == null %}
+            <div style="display: flex; justify-content: space-between;">
+                <p>You do not have and item in your cart</p>
+                <a href="/" class="button button-secondary button-winona">Continue Shopping</a>
+            </div>
+            {% else %}
+            <div class="pull-right">
+                <button id="submitBtn" class="button button-secondary button-winona">Place Order</button>
+            </div>
+                {% endif %}
+        </div>
+
+    </div>
+</div>
+<script>
+    fetch('/config')
+    .then((result) => {return result.json();})
+    .then((data) => {
+        const stripe = Stripe(data.publicKey);
+
+        document.querySelector('#submitBtn').addEventListener('click', ()=>{
+            fetch('/create-checkout-session').then((result)=>{ return result.json(); }).then((data)=>{
+                console.log(data)
+                return stripe.redirectToCheckout({sessionId: data.sessionId})
+            })
+            .then((res)=>{
+                console.log(res);
+            });
+        });
+    });
+</script>
+{% endblock body %}

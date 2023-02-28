@@ -1,0 +1,53 @@
+{% load static %}
+
+<!-- Our Shop-->
+<section class="section section-lg bg-default">
+<div class="container">
+    <h3 class="oh-desktop"><span class="d-inline-block wow slideInUp">Selected Pizzas</span></h3>
+    <div class="row row-lg row-30">
+    {% for product in products %}
+      
+    <div class="col-sm-6 col-lg-4 col-xl-3">
+        <!-- Product-->
+        <article class="product wow fadeInLeft" data-wow-delay=".1s">
+            <div class="product-figure"><img src='{{product.image.url}}' alt="" width="161px" height="162px"/>
+            </div>
+            <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
+            </div>
+            <h6 class="product-title">{{product.title}}</h6>
+            <div class="product-price-wrap">
+                {% if product.discount_price %}
+                <div class="product-price">${{product.discount_price}}</div>
+                <div class="product-price product-price-old">${{product.price}}</div>
+                {% else %}
+                <div class="product-price">${{product.price}}</div>
+                {% endif %}
+            </div>
+            <div class="product-button">
+                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="{% url 'add_to_cart' product.slug %}">Add to cart</a></div>
+                <div class="button-wrap"><a data-lightgallery="item" class="button button-xs button-secondary button-winona" href="{{product.image.url}}">View Product</a></div>
+            </div><span class="product-badge product-badge-{{product.status.lower}}">{% if product.status != 'None' %} {{product.status}} {% endif %}</span>
+        </article>
+    </div>
+{% endfor %}
+
+    </div>
+</div>
+</section>
+
+
+<!-- Section CTA-->
+<section class="primary-overlay section parallax-container" data-parallax-img='{% static "images/sta-2.jpg" %}'>
+<div class="parallax-content section-xxl context-dark text-md-left">
+    <div class="container">
+    <div class="row justify-content-end">
+        <div class="col-sm-9 col-md-7 col-lg-5">
+        <div class="cta-modern">
+            <h3 class="cta-modern-title cta-modern-title-2 oh-desktop"><span class="d-inline-block wow fadeInLeft">-30% on all salads & drinks</span></h3>
+            <p class="cta-modern-text cta-modern-text-2 oh-desktop" data-wow-delay=".1s"><span class="cta-modern-decor cta-modern-decor-2 wow slideInLeft"></span><span class="d-inline-block wow slideInUp">Taste some of the best PizzaHouse salads!</span></p><a class="button button-lg button-secondary button-winona wow fadeInRight" href="contacts.html" data-wow-delay=".2s">contact us</a>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</section>

@@ -1,0 +1,43 @@
+{% load static %}
+<!-- What We Offer-->
+<section class="section section-md bg-default">
+  <div class="container">
+    <h3 class="oh-desktop"><span class="d-inline-block wow slideInDown">Our Menu</span></h3>
+    <div class="row row-md row-30">
+        {% load mptt_tags %}
+        {% recursetree category %}
+          
+        <div class="col-sm-6 col-lg-4">
+          <div class="oh-desktop">
+            <!-- Services Terri-->
+            <article class="services-terri wow slideInUp">
+              <div class="services-terri-figure"><img src='{{node.image.url}}' alt="" width="370px" height="278px"/>
+              </div>
+              <div class="services-terri-caption"><span class="services-terri-icon linearicons-{{node.icon}}"></span>
+                <h5 class="services-terri-title"><a href="{% url 'menu' node.slug %}">{{node.title}}</a></h5>
+              </div>
+            </article>
+          </div>
+        </div>
+        
+        {% endrecursetree %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section CTA-->
+  <section class="primary-overlay section parallax-container" data-parallax-img='{% static "images/pexels-life-of-pix-67468.jpg" %}'>
+    <div class="parallax-content section-xl context-dark text-md-left">
+      <div class="container">
+        <div class="row justify-content-end">
+          <div class="col-sm-8 col-md-7 col-lg-5">
+            <div class="cta-modern">
+              <h3 class="cta-modern-title wow fadeInRight">Best atmosphere</h3>
+              <p class="lead">PizzaHouse is the place of the best pizza and high-quality service.</p>
+              <p class="cta-modern-text oh-desktop" data-wow-delay=".1s"><span class="cta-modern-decor wow slideInLeft"></span><span class="d-inline-block wow slideInDown">Ben Smith, Founder</span></p><a class="button button-md button-secondary-2 button-winona wow fadeInUp" href="#" data-wow-delay=".2s">View Our Services</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

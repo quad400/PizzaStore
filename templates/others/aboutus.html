@@ -1,0 +1,148 @@
+{% extends "constant/base.html" %}
+{% block title %}AboutUs{% endblock %}
+{% include "constant/preloader.html" %}
+{% load static %}
+{% include "constant/navbar.html" %}
+
+      {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+{% block body %}
+<div class="page">
+
+    <section class="section section-lg bg-default">
+        <div class="container">
+          <div class="tabs-custom row row-50 justify-content-center flex-lg-row-reverse text-center text-md-left" id="tabs-4">
+            <div class="col-lg-4 col-xl-3">
+              <h5 class="text-spacing-200 text-capitalize">10+ years of experience</h5>
+              <ul class="nav list-category list-category-down-md-inline-block">
+                {% for abt in about_us %}
+                  
+                <li class="list-category-item wow fadeInRight" role="presentation" data-wow-delay="{{abt.style_delay}}s"><a class="{{abt.active}}" href="#{{abt.style_tabs}}" data-toggle="tab">{{abt.topic}}</a></li>
+                
+                {% endfor %}
+              </ul><a class="button button-xl button-primary button-winona" href="{% url 'contact_us' %}">Contact us</a>
+            </div>
+            <div class="col-lg-8 col-xl-9">
+              <!-- Tab panes-->
+              <div class="tab-content tab-content-1">
+                {% for abt in about_us %}
+                  
+                <div class="tab-pane {{abt.show}} {{abt.active}}" id="{{abt.style_tabs}}">
+                    <h4>{{abt.sub_topic}}</h4>
+                    <p>{{abt.details}}</p><img src="{{abt.image.url}}" alt="" width="835" height="418"/>
+                </div>
+                
+                {% endfor %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Icon Classic-->
+      <section class="section section-lg bg-gray-100">
+        <div class="container">
+          <div class="row row-md row-50">
+            {% for icon in icons %}
+              
+            <div class="col-sm-6 col-xl-4 wow fadeInUp" data-wow-delay=".{{icon.delay}}s">
+                <article class="box-icon-classic">
+                    <div class="unit unit-spacing-lg flex-column text-center flex-md-row text-md-left">
+                        <div class="unit-left">
+                            <div class="box-icon-classic-icon linearicons-{{icon.icon}}"></div>
+                  </div>
+                  <div class="unit-body">
+                    <h5 class="box-icon-classic-title"><a href="#">{{icon.title}}</a></h5>
+                    <p class="box-icon-classic-text">{{icon.desc}}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+      </section>
+
+      <!-- Our Team-->
+      <section class="section section-lg section-bottom-md-70 bg-default">
+        <div class="container">
+          <h3 class="oh"><span class="d-inline-block wow slideInUp" data-wow-delay="0s">our team</span></h3>
+          <div class="row row-lg row-40 justify-content-center">
+            {% for team in teams %}
+            <div class="col-sm-6 col-lg-3 wow fadeInLeft" data-wow-delay=".2s" data-wow-duration="1s">
+                <!-- Team Modern-->
+                <article class="team-modern"><a class="team-modern-figure" href="#"><img src="{{team.image.url}}" alt="" width="270" height="236"/></a>
+                    <div class="team-modern-caption">
+                        <h6 class="team-modern-name"><a href="#">{{team.name}}</a></h6>
+                        <div class="team-modern-status">{{team.post}}</div>
+                        <ul class="list-inline team-modern-social-list">
+                            <li><a class="icon mdi mdi-facebook" href="#"></a></li>
+                            <li><a class="icon mdi mdi-twitter" href="#"></a></li>
+                            <li><a class="icon mdi mdi-instagram" href="#"></a></li>
+                            <li><a class="icon mdi mdi-google-plus" href="#"></a></li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+    <!-- History -->
+    <section class="section section-lg bg-gray-100 text-left section-relative">
+        <div class="container">
+          <div class="row row-60 justify-content-center justify-content-xxl-between">
+            <div class="col-lg-6 col-xxl-5 position-static">
+              <h3>Our history</h3>
+              <div class="tabs-custom" id="tabs-5">
+                <div class="tab-content tab-content-1">
+                  {% for hist in history %}
+                    
+                  <div class="tab-pane fade {{hist.show}} {{hist.active}}" id="{{hist.style_tabs}}">
+                      <h5 class="font-weight-normal text-transform-none text-spacing-75">{{hist.title}}</h5>
+                      <p>{{hist.detail}}</p>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+                <div class="list-history-wrap">
+                    <ul class="nav list-history">
+                        {% for hist in history %}
+                        
+                        <li class="list-history-item" role="presentation"><a class="{{hist.active}}" href="#{{hist.style_tabs}}" data-toggle="tab">
+                            <div class="list-history-circle"></div>{{hist.year}}</a>
+                        </li>
+                        
+                        {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9 col-lg-6 position-static index-1">
+                {% for set in settings %}
+                  
+                <div class="bg-image-right-1 bg-image-right-lg"><img src='{% static "./images/pexels-shameel-mukkath-6089653.jpg" %}' alt="" width="1110" height="710"/>
+                    <div class="link-play-modern">
+                        <a class="icon mdi mdi-play" data-lightgallery="item" href="{{set.video.url}}"></a>
+                        <!-- <video src="{{set.video.url}}" controls></video> -->
+                        <div class="link-play-modern-title">How we<span>Work</span></div>
+                        <div class="link-play-modern-decor"></div>
+                    </div>
+                    <div class="box-transform" style="background-image: url({{set.image_about2.url}});"></div>
+                </div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+</div>
+{% endblock %}
+{% include "constant/footer.html" %}

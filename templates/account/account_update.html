@@ -1,0 +1,17 @@
+{% extends "account/account.html" %}
+{% block title %}Profile Update{% endblock %}
+  {% block tab %}
+
+<h2>Account Update</h2>
+
+<form method="post" enctype="multipart/form-data" action="{% url 'account_detail' %}">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      {{user_info.as_p}}
+      {{profile_form.as_p}}
+    </fieldset>
+    <button class="button button-secondary button-winona" type="submit">Update</button>
+  </form>
+
+
+  {% endblock tab %}
